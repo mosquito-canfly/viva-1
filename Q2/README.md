@@ -51,11 +51,13 @@ About printing the receipt: Number of whitespaces are calculated manually and wh
 Sample 1
 
 ![Sample input 1](sample-cases/sample-input-1.png)
+
 ![Sample output 1](sample-cases/sample-output-1.png)
 
 Sample 2
 
 ![Sample input 2](sample-cases/sample-input-2.png)
+
 ![Sample output 2](sample-cases/sample-output-2.png)
 
 ### Source code
