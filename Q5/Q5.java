@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Q5Alt {
+public class Q5 {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         System.out.print("Enter Original Message: ");
