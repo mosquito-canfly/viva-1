@@ -5,71 +5,73 @@ public class Q6 {
         Scanner s = new Scanner(System.in);
         Random r = new Random();
 
-        // Welcome message
+        // welcome message
         System.out.println("Welcome to the Dragon Egg Quest!");
         System.out.println("There are 10 chests, 3 dragon eggs, and 2 cursed chests.");
         System.out.println("You have 10 attempts to find all dragon eggs.");
         System.out.println();
 
-        // Declare array
+        // declare array
         int[] eggs = new int[3];
         int[] curse = new int[2];
 
-        // Generate random eggs
+        int randomNumber;
+
+        // generate random egg chests
         for (int i = 0; i < eggs.length; i++) {
-            int uniEgg;
-            boolean unique;
+            boolean isUnique;
             do {
-                unique = true;
-                uniEgg = r.nextInt(10) + 1;
-                // Check whether the egg chest is unique or not
+                isUnique = true;
+                randomNumber = r.nextInt(10) + 1;
+                /* check whether the egg chest is isUnique or not */
+                // compare the second egg and third egg with the previous egg
                 for (int j = 0; j < i; j++) {
-                    if (eggs[j] == uniEgg) {
-                        unique = false;
+                    if (eggs[j] == randomNumber) {
+                        isUnique = false;
                         break;
                     }
                 }
-            } while (!unique);
-            eggs[i] = uniEgg;
+            } while (!isUnique); // duplicated number detected
+            eggs[i] = randomNumber;
         }
 
-        // Generate random chest
+        // generate random cursed chest
         for (int i = 0; i < curse.length; i++) {
-            int uniCurse;
-            boolean unique;
+            boolean isUnique;
             do {
-                unique = true;
-                uniCurse = r.nextInt(10) + 1;
-                // Check whether the curse is unique or not
+                isUnique = true;
+                randomNumber = r.nextInt(10) + 1;
+                /* check whether the curse chest is isUnique or not */
+                // compare the second curse with the previous curse
                 for (int j = 0; j < i; j++) {
-                    if (curse[j] == uniCurse) {
-                        unique = false;
+                    if (curse[j] == randomNumber) {
+                        isUnique = false;
                         break;
                     }
                 }
-            } while (!unique);
-            curse[i] = uniCurse;
+            } while (!isUnique);
+            curse[i] = randomNumber;
         }
 
-        // Read guess from user
+        // read guess from user
         int attempt = 10;
         int found = 0;
         while (attempt > 0 && found < 3) {
             System.out.print("Guess a chest (1-10): ");
             int guess = s.nextInt();
 
-            // Print error message if guess is out of range
+            // print error message if guess is out of range
             if (guess < 1 || guess > 10) {
                 System.out.println("Out of range! Try again!");
                 System.out.println();
                 continue;
             }
 
-            // Declare found egg and cursed chest
+            // declare found egg and cursed chest
             boolean foundEgg = false;
             boolean cursed = false;
 
-            // If the chest is cursed
+            // if the chest is cursed
             for (int i = 0; i < curse.length; i++) {
                 int c = curse[i];
                 if (guess == c) {
@@ -81,27 +83,28 @@ public class Q6 {
                 attempt--;
             }
 
-            // If the egg is found
+            // if the egg is found
             for (int i = 0; i < eggs.length; i++) {
                 int e = eggs[i];
                 if (guess == e) {
                     foundEgg = true;
-                    eggs[i] = -1; // Mark the egg as found
+                    eggs[i] = -1; // mark the egg as found
                     found++;
                 }
             }
 
-            // Action if the egg is found (print message or break)
+            // action if the egg is found (print message and break)
             if (foundEgg) {
                 System.out.println("You found a dragon egg!");
                 if (found == 3) {
                     System.out.println();
-                    System.out.println("Congratulations! ALl dragon eggs are safe!");
+                    System.out.println("Congratulations! All dragon eggs are safe!");
                     break;
                 }
 
             } else {
-                // Find the min distance and the nearest egg
+                /* if the egg is not found */
+                // find the min distance and the nearest egg
                 int minDistance = 11;
                 int nearestEgg = -1;
                 for (int i = 0; i < eggs.length; i++) {
@@ -109,39 +112,38 @@ public class Q6 {
                     if (e == -1) {
                         continue;
                     }
-                    // Calculate distance between all eggs and the chest
+                    // calculate distance between all eggs and the guess
                     int distance = Math.abs(guess - e);
-                    // Found the min distance and the nearest egg
+                    // found the min distance and the nearest egg
                     if (distance < minDistance) {
                         minDistance = distance;
                         nearestEgg = e;
                     }
                 }
 
-                // Action if the egg is near (hint on chest number)
+                // action if the egg is near
                 if (minDistance <= 3) {
                     System.out.println("Warm! You're very close to a dragon egg!");
-                    if (guess > nearestEgg) {
-                        System.out.println("Hint: Try a lower chest number.");
-                        System.out.println("No egg here, keep searching!");
-                    }else{
-                        System.out.println("Hint: Try a higher chest number.");
-                        System.out.println("No egg here, keep searching!");
-                    }
                 }else{
-                    // Action if the egg is far
+                    // action if the egg is far
                     System.out.println("Cold! You're far from any dragon egg!");
-                    System.out.println("No egg here, keep searching!");
                 }
+                // give directional hint to help the player
+                if (guess > nearestEgg) {
+                    System.out.println("Hint: Try a lower chest number.");
+                }else{
+                    System.out.println("Hint: Try a higher chest number.");
+                }
+                System.out.println("No egg here, keep searching!");
             }
 
-            // Print attempts left
+            // print attempts left
             attempt--;
             System.out.println("Attempts left: " + attempt);
             System.out.println();
         }
 
-        // If lose the game
+        // if lose the game
         if (found < 3) {
             System.out.println("Game Over! Some dragon eggs remain hidden!");
         }
