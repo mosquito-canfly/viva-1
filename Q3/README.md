@@ -42,11 +42,11 @@ If username valid, a variable strength is initialized at 0. Several boolean flag
 ### Sample input and output
 Sample 1
 
-![sample-input&output-1.png](sample-cases/sample-input%26output-1.png)
+![sample-input-output-1.png](sample-cases/sample-input-output-1.png)
 
 Sample 2
 
-![sample-input&output-2.png](sample-cases/sample-input%26output-2.png)
+![sample-input-output-2.png](sample-cases/sample-input-output-2.png)
 
 ### Source code
-See 
+See [Q3.java](Q3.java)
