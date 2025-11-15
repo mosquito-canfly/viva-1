@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Q3 {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
+
         System.out.print("Enter username: ");
         String username = sc.nextLine();
         System.out.print("Enter password: ");
@@ -43,42 +44,59 @@ public class Q3 {
 
         if (!valid) {
             System.out.println("Invalid username");
-        } else { // for valid username
-            /* password validation */
-            int strength = 0;
-            int length = password.length();
+        }
 
-            if (length >= 8) { // minimum 8 characters
-                strength++;
-            }
-            if (password.matches(".*[A-Z].*")) { // at least one uppercase letter
-                strength++;
-            }
-            if (password.matches(".*[a-z].*")) { // at least one lowercase letter
-                strength++;
-            }
-            if (password.matches(".*[0-9].*")) { // at least one digit
-                strength++;
-            }
-            if (password.matches(".*[!@#$%^&*].*")) { // at least one special character
-                strength++;
-            }
-            if (!password.contains(" ")) { // must not contain spaces
-                strength++;
-            }
-            if (!password.toLowerCase().contains(username.toLowerCase())) { // no username as a substring
-                strength++;
-            }
+        int strength = 0;
+        //minimum 8 characters
+        if (password.length() >= 8) {
+            strength++;
+        }
+        //no username as substring
+        if (!password.toLowerCase().contains(username.toLowerCase())) {
+            strength++;
+        }
 
-            if (strength <= 3) {
-                System.out.println("Password Strength: Weak");
-            } else if (strength <= 5) {
-                System.out.println("Password Strength: Moderate");
-            } else if (strength == 6) {
-                System.out.println("Password Strength: Strong");
-            } else {
-                System.out.println("Password Strength: Very Strong");
+        boolean uppercase = false;
+        boolean lowercase = false;
+        boolean digit = false;
+        boolean special = false;
+        boolean spaces = false;
+
+        for (int i = 0; i < password.length(); i++) {
+            char ch = password.charAt(i);
+            if(ch >= 'A' && ch <= 'Z') {
+                uppercase = true;
             }
+            if (ch >= 'a' && ch <= 'z') {
+                lowercase = true;
+            }
+            if (ch >= '0' && ch <= '9') {
+                digit = true;
+            }
+            //anything except letters and digits are special characters
+            if (!((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9') || (ch == ' '))) {
+                special = true;
+            }
+            if (ch == ' ') {
+                spaces = true;
+            }
+        }
+
+        if (uppercase) strength++;
+        if (lowercase) strength++;
+        if (digit) strength++;
+        if (special) strength++;
+        if (!spaces) strength++;
+
+        System.out.print("Password Strength: ");
+        if (strength <= 3) {
+            System.out.print("Weak");
+        } else if (strength <= 5) {
+            System.out.print("Moderate");
+        } else if (strength == 6) {
+            System.out.print("Strong");
+        } else {
+            System.out.print("Very Strong");
         }
     }
 }
