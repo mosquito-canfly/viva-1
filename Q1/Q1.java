@@ -5,6 +5,7 @@ public class Q1 {
         System.out.println("****Encik Hafiz's Library Fine System****");
         Scanner input = new Scanner(System.in);
         System.out.print("Please enter number or books returning: ");
+        // Identify loops
         int numBooks = input.nextInt();
 
         for (int i = 1; i <= numBooks; i++) {
